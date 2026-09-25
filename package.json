@@ -9,9 +9,14 @@
     "check:backend": "go build ./apps/backend/...",
     "dev:backend": "go run ./apps/backend/cmd/server",
     "lint": "pnpm -r lint",
+    "test": "pnpm -r test && go -C apps/backend test ./...",
+    "test:backend": "go -C apps/backend test -cover ./...",
+    "test:coverage": "pnpm -r test:coverage",
     "typecheck": "pnpm -r typecheck"
   },
   "devDependencies": {
-    "typescript": "^5.8.2"
+    "@vitest/coverage-v8": "^5.0.0",
+    "typescript": "^5.8.2",
+    "vitest": "^5.0.0"
   }
 }

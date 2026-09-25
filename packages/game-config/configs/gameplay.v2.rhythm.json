@@ -1,0 +1,23 @@
+{
+  "timing": {
+    "perfectWindowMs": 80,
+    "goodWindowMs": 160,
+    "leadInSeconds": 2
+  },
+  "scoring": {
+    "perfect": 100,
+    "good": 60,
+    "miss": 0,
+    "comboBonusPer10": 10,
+    "comboBonusCap": 50
+  },
+  "feedback": {
+    "perfect": "食不食油饼!太美了",
+    "good": "有点东西",
+    "miss": "小黑子刷差评"
+  },
+  "gauge": {
+    "enabled": false,
+    "missLimit": 20
+  }
+}

@@ -9,6 +9,8 @@
     "demo": "tsx src/example.ts",
     "demo:online": "tsx src/example-online.ts",
     "lint": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
@@ -16,6 +18,8 @@
     "@i-love-playing-ball/platform-sdk": "workspace:*"
   },
   "devDependencies": {
-    "tsx": "^4.19.3"
+    "@vitest/coverage-v8": "^5.0.0",
+    "tsx": "^4.19.3",
+    "vitest": "^5.0.0"
   }
 }

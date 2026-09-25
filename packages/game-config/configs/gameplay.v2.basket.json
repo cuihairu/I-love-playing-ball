@@ -1,0 +1,25 @@
+{
+  "match": {
+    "durationSeconds": 60,
+    "overtimeSeconds": 15,
+    "maxOvertimeCount": 1,
+    "missBreaksCombo": true
+  },
+  "scoring": {
+    "normalHit": 2,
+    "cleanHit": 3,
+    "perfectShotBonus": 1,
+    "comboTiers": [
+      { "combo": 3, "bonus": 1, "state": "hot" },
+      { "combo": 5, "bonus": 1, "state": "hyped" },
+      { "combo": 8, "bonus": 2, "state": "crazy" }
+    ]
+  },
+  "versus": {
+    "npcLadder": [
+      { "rank": 0, "name": "街头球混子", "targetScore": 20 },
+      { "rank": 1, "name": "巷子之王", "targetScore": 32 },
+      { "rank": 2, "name": "宗门球魁", "targetScore": 46 }
+    ]
+  }
+}

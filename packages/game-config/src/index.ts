@@ -1,5 +1,7 @@
 import gameplayConfigJson from "../configs/gameplay.v1.json";
 
+export * from "./gameplay-v2.js";
+
 export type EmotionTrigger = "combo" | "miss";
 
 export interface GameRulesConfig {

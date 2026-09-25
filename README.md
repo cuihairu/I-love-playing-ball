@@ -60,6 +60,9 @@
 - Gameplay 反馈钩子见 `docs/gameplay-feedback-hooks.md`
 - Home/Result 页面钩子见 `docs/home-result-hooks.md`
 - 第一版玩法设计见 `docs/gameplay-v1.md`
+- 第二版玩法设计(爱坤宗·四艺修行)见 `docs/gameplay-v2.md`
+- 热梗语料收集与分析见 `docs/meme-collection.md`
+- 平台合规分析见 `docs/compliance.md`
 
 ## 当前联调
 

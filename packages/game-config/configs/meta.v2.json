@@ -1,0 +1,48 @@
+{
+  "cultivation": {
+    "dayUnitLabel": "天",
+    "maxLevelAchievement": "两年半",
+    "levelDaysThresholds": [0, 3, 7, 15, 30, 60, 120, 240, 365, 540, 730],
+    "ranks": [
+      { "level": 0, "name": "练习生" },
+      { "level": 2, "name": "外门弟子" },
+      { "level": 4, "name": "内门弟子" },
+      { "level": 6, "name": "真传弟子" },
+      { "level": 8, "name": "长老" },
+      { "level": 10, "name": "宗主亲传" }
+    ]
+  },
+  "channels": [
+    { "id": "sing", "name": "唱", "mode": "rhythm", "unlockLevel": 0, "status": "open" },
+    { "id": "dance", "name": "跳", "mode": "rhythm", "unlockLevel": 6, "status": "cultivating" },
+    { "id": "rap", "name": "rap", "mode": "rhythm", "unlockLevel": 9, "status": "cultivating" },
+    { "id": "basketball", "name": "篮球", "mode": "basket", "unlockLevel": 0, "status": "open" }
+  ],
+  "medals": {
+    "channelMedals": [
+      { "id": "sing-bronze", "channel": "sing", "tier": "bronze", "name": "开嗓", "requirement": { "type": "channelPlays", "target": 3, "channel": "sing" } },
+      { "id": "sing-silver", "channel": "sing", "tier": "silver", "name": "金麦·银", "requirement": { "type": "channelBestCombo", "target": 20, "channel": "sing" } },
+      { "id": "sing-gold", "channel": "sing", "tier": "gold", "name": "金麦·金", "requirement": { "type": "channelBestCombo", "target": 40, "channel": "sing" } },
+      { "id": "dance-bronze", "channel": "dance", "tier": "bronze", "name": "热身", "requirement": { "type": "channelPlays", "target": 3, "channel": "dance" } },
+      { "id": "dance-silver", "channel": "dance", "tier": "silver", "name": "舞魁·银", "requirement": { "type": "channelBestCombo", "target": 20, "channel": "dance" } },
+      { "id": "dance-gold", "channel": "dance", "tier": "gold", "name": "舞魁·金", "requirement": { "type": "channelBestCombo", "target": 40, "channel": "dance" } },
+      { "id": "rap-bronze", "channel": "rap", "tier": "bronze", "name": "开嗓·快嘴", "requirement": { "type": "channelPlays", "target": 3, "channel": "rap" } },
+      { "id": "rap-silver", "channel": "rap", "tier": "silver", "name": "快嘴·银", "requirement": { "type": "channelBestCombo", "target": 20, "channel": "rap" } },
+      { "id": "rap-gold", "channel": "rap", "tier": "gold", "name": "快嘴·金", "requirement": { "type": "channelBestCombo", "target": 40, "channel": "rap" } },
+      { "id": "basketball-bronze", "channel": "basketball", "tier": "bronze", "name": "球混子", "requirement": { "type": "channelPlays", "target": 3, "channel": "basketball" } },
+      { "id": "basketball-silver", "channel": "basketball", "tier": "silver", "name": "巷子之王", "requirement": { "type": "basketWins", "target": 3 } },
+      { "id": "basketball-gold", "channel": "basketball", "tier": "gold", "name": "宗门球魁", "requirement": { "type": "basketWins", "target": 10 } }
+    ],
+    "memeMedals": [
+      { "id": "first-audience", "name": "初见宗主", "requirement": { "type": "login", "target": 1 } },
+      { "id": "producers", "name": "全民制作人们", "requirement": { "type": "channelBestCombo", "target": 30, "channel": "sing" } },
+      { "id": "hei-killer", "name": "小黑子克星", "requirement": { "type": "basketWins", "target": 5 } },
+      { "id": "oil-pancake", "name": "食不食油饼", "requirement": { "type": "perfectTotal", "target": 200 } },
+      { "id": "lawyer-letter", "name": "律师函传人", "requirement": { "type": "streakDays", "target": 3 } },
+      { "id": "two-and-half-years", "name": "两年半", "requirement": { "type": "level", "target": 10 } }
+    ],
+    "limited": [
+      { "id": "sect-master-visit", "name": "宗主显圣", "requirement": { "type": "login", "target": 1 }, "availableUntil": "2026-09-30" }
+    ]
+  }
+}

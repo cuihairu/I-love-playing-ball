@@ -1,6 +1,6 @@
 # Ikunism
 
-一个以篮球和小鸡梗图为核心视觉的小游戏 monorepo，目标平台是微信小游戏和抖音小游戏，当前变现方式只考虑广告，不接支付。
+一个以篮球和小鸡梗图为核心视觉的游戏 monorepo。当前方向:主线章节制叙事游戏《爱坤宗》(宗主被镇压、弟子化鸡、闯关收碎片、唤醒同门),平台策略为 Steam 买断制先行,微信小游戏和抖音小游戏后行(降敏 F2P 版,变现只考虑广告,不接支付)。
 
 ## 当前建议
 
@@ -61,6 +61,9 @@
 - Home/Result 页面钩子见 `docs/home-result-hooks.md`
 - 第一版玩法设计见 `docs/gameplay-v1.md`
 - 第二版玩法设计(爱坤宗·四艺修行)见 `docs/gameplay-v2.md`
+- 第三版玩法设计(主线章节制)见 `docs/gameplay-v3.md`
+- 故事圣经(世界观/主线/七罪心魔/宽恕结局)见 `docs/story.md`
+- 关卡与玩法设计(章节/曲目/结局挂点)见 `docs/levels.md`
 - 热梗语料收集与分析见 `docs/meme-collection.md`
 - 平台合规分析见 `docs/compliance.md`
 

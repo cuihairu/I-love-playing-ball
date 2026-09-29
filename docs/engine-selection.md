@@ -126,8 +126,15 @@ scons platform=web target=template_release optimize=size_extra lto=full \
 2. G6（iOS 低端 wasm 编译 8–12s）为任务书给定，本轮未找到一手基准，须真机实测。
 3. Cocos Steam Electron 壳体积“数十 MB”为二手经验假设。
 4. Godot Steam 买断案例数为公开报道转述，非 Steamworks 后台统计。
-5. 抖音 Godot 官方支持（4.5）仅见 indienova 转述，一手文档链接待补。
+5. 抖音 Godot 官方支持（4.5）仅见[indienova 转述](https://indienova.com/groups/post/103403)，一手文档链接待补。
 6. 本文档 Star/Fork/版本号为 2026-09-29 取证快照，决策前建议重验（社区方案迭代快）。
+**第二批(2026-09-29)独立取证新增事实**(并入§6复核记录，见下):
+7. 微信主包上限实测：官方文档当前明确**30M 为无条件上限**（非“仅开通虚拟支付后”），旧值20M系历史遗留，详见 `final_analysis.md` A1。
+8. 微信 WXWebAssembly 最低基础库：v2.13.0 为首次提供 WXWebAssembly 访问能力（非最低运行要求），v3.2.0 仅为 bugfix milestone，详见 `final_analysis.md` A2。
+9. 微信 eval/new Function 明确禁用：官方文档确认“出于安全考虑，不支持动态执行 JS 代码”，详见 `final_analysis.md` A3。
+10. 抖音包体上限：整体/总上限 20MB，主包≤4MB，单分包≤20MB，与微信现行 30M 总上限存在差异，详见 `final_analysis.md` B1。
+11. 抖音官方转换工具链风险：`wechat-miniprogram/minigame-unity-webgl-transform` 被 GitHub Staff 因商标政策禁用（2026-09-29 实查），官方文档仍在微信文档站，已并入 engine-selection §3.2。
+12. Cocos Steam 买断制确认案例：`SpaceKraft!` 为唯一明确标记 Cocos Creator + Steam 买断制案例（$11.99，物理模拟游戏），社区多次提及但明确案例仅 1 个，详见 `final_analysis.md` C4/C5。
 
 ## 6. 复核记录（2026-09-29 第二批独立取证，同日并行会话）
 

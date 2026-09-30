@@ -34,8 +34,8 @@
 | 支持性质 | **无官方支持**，纯社区（Godot 官方 proposal 仍 open：[#10934](https://github.com/godotengine/godot-proposals/issues/10934)、[discussion 10947](https://github.com/godotengine/godot-proposals/discussions/10947)） | **官方一键导出**微信/抖音（含 PC 小游戏、引擎插件、iOS 内存优化指南）：[微信](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html)、[抖音](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-bytedance-mini-game.html)、[分包](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/subpackage.html) | **微信官方转换方案**（团结引擎及 Unity 均支持）：[适配方案总览](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform.html)、[转换 SDK 手册](https://docs.unity.cn/cn/tuanjiemanual/Manual/WechatSDK.html)、[快速开始](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/Transform.html) |
 | 导出链路 | Web 导出 → 社区适配脚本改造成小游戏工程（§2 详述） | 编辑器构建面板直出，配资源服务器地址做远程化 | Unity 导出 WebGL → 微信转换插件转小游戏（assets 内 WebGLTemplates + WX-WASM-SDK） |
 | 引擎运行时体积 | 兼容构建 `godot.wasm.br` **6.0MB**（[mkdevkit README 实测值](https://github.com/mkdevkit/godot-minigame)；Brotli 后；未压缩约 22MB） | **引擎运行时内置于微信客户端**（走引擎插件），不吃 4MB 主包（二手来源：[cinevva 2026 选型指南](https://app.cinevva.com/zh-CN/guides/wechat-mini-game-engines)，假设待官方文档复核） | wasm 未压缩 **~30MB**、Brotli 后 **~6MB**（[微信官方代码分包文档](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/WasmSplit.html)）；分包后首包 3–5MB、子包 7–15MB |
-| 包体上限规则 | 同微信通用规则：主包 ≤4MB、总包 ≤20MB（未开虚拟支付）/≤30MB（已开）（[mkdevkit 对规则的转述](https://github.com/mkdevkit/godot-minigame)；虚拟支付能力见[微信官方](https://developers.weixin.qq.com/minigame/introduction/commercialization/virtual-payment/guide.html)；30MB 口径并见[知乎实战](https://zhuanlan.zhihu.com/p/2078517342133281890)，注：“20MB 包内加载阈值 vs 30MB 总包上限不要混淆”） | 同左；Cocos 官方文档口径：主包 4MB、超限配资源服务器（[Cocos 微信发布](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html)）；抖音：整体 ≤20MB、主包 ≤4MB（[Cocos 分包](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/subpackage.html)）；注意抖音侧与微信还有一个差异——微信单分包不限大小，抖音单分包上限存在 **4MB**（[Cocos 2.4 分包文档](https://docs.cocos.com/creator/2.4/manual/zh/publish/subpackage.html)、[抖音分包介绍](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/framework/subpackages/introduction)）与 **20MB** 两种记载（检索快照互相矛盾），架构上按“单分包 ≤4MB”保守设计可同时满足两平台，提审前以开发者工具实测为准（见 §6-4） | 同左；Unity 场景下官方建议代码分包 + AssetBundle/Addressable 按需加载（[分包工具](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/WasmSplit.html)、[资源部署](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/DataCDN.html)） |
-| 本项目相关度 | 后行降敏版若走 Godot：引擎 6MB + pck 13.5MB（示例值）≈ 19–20MB，逼近 20MB 上限，大概率要开虚拟支付（本项目不接支付，仅为提上限）或 pck 走 CDN | 引擎不吃包体，包体压力最小，最契合“梗图多、包体敏感” | 体积压力最大，优化流程最重 |
+| 包体上限规则 | 同微信通用规则：主包 ≤4MB、**总包 ≤30M（现行官方文本，无条件，不依赖虚拟支付）**、单分包不限（[微信官方分包文档 2026-09-30 实时抓取](https://developers.weixin.qq.com/minigame/dev/subpackages/introduction/useSubPackage.html)：“代码包总大小不能超过 30M，单个分包不限制大小，主包不超过 4M”；复核过程见 §7）。历史口径“总包 ≤20MB（未开虚拟支付）/≤30MB（已开）”系二手转述（[mkdevkit](https://github.com/mkdevkit/godot-minigame)），20M 为旧值；虚拟支付能力本身见[微信官方](https://developers.weixin.qq.com/minigame/introduction/commercialization/virtual-payment/guide.html)；知乎实战（[链接](https://zhuanlan.zhihu.com/p/2078517342133281890)）提示的“20MB 包内加载阈值 vs 30MB 总包上限不要混淆”仍作二手提示保留——首屏可玩内容仍按 ≤20MB 加载阈值设计更稳 | 同左；Cocos 官方文档口径：主包 4MB、超限配资源服务器（[Cocos 微信发布](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html)）；抖音：整体 ≤20MB、主包 ≤4MB（[Cocos 分包](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/subpackage.html)）；注意抖音侧与微信还有一个差异——微信单分包不限大小，抖音单分包上限存在 **4MB**（[Cocos 2.4 分包文档](https://docs.cocos.com/creator/2.4/manual/zh/publish/subpackage.html)、[抖音分包介绍](https://developer.open-douyin.com/docs/resource/zh-CN/mini-game/develop/framework/subpackages/introduction)）与 **20MB** 两种记载（检索快照互相矛盾），架构上按“单分包 ≤4MB”保守设计可同时满足两平台，提审前以开发者工具实测为准（见 §6-4） | 同左；Unity 场景下官方建议代码分包 + AssetBundle/Addressable 按需加载（[分包工具](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/WasmSplit.html)、[资源部署](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/DataCDN.html)） |
+| 本项目相关度 | 后行降敏版若走 Godot：引擎 6MB + pck 13.5MB（示例值）≈ 19–20MB，占现行 30M 无条件上限约 2/3、不越线；但若按二手“20MB 首屏加载阈值”口径设计则仍顶格，pck 走 CDN 仍是推荐解；原“开虚拟支付提上限”解法随总包口径复核为 30M 无条件而不再必要（§7） | 引擎不吃包体，包体压力最小，最契合“梗图多、包体敏感” | 体积压力最大，优化流程最重 |
 
 ## 2. Godot 小游戏方案细研（重点）
 
@@ -57,7 +57,7 @@
 | G1 | 标准 Web 导出 wasm 带 EH（Exception 段），`WXWebAssembly.compile` 报 `CompileError: unexpected section <Exception>`，模拟器默认也拒 | 致命：包跑不起来 | 自编无 EH/SIMD 兼容引擎：`platform/web/detect.py` 两处 wasm→emscripten（SUPPORT_LONGJMP），scons 按 §2.3 配置编译 | **是** | [mkdevkit §二-1/§八](https://github.com/mkdevkit/godot-minigame) |
 | G2 | 引擎与 pck 必须**同 patch 版本**（UID 索引哈希不兼容，如 4.6.1 vs 4.6.4 报 Unrecognized UID） | 版本错配即黑屏/报错 | 引擎模板与导出编辑器同版本；AnranS 用“exact template identity”门 + CI 校验；godothub 插件自动匹配模板 | **是** | [mkdevkit §二-2](https://github.com/mkdevkit/godot-minigame)、[AnranS 架构](https://github.com/AnranS/godot_for_minigame/blob/main/docs/ARCHITECTURE.md)；UID 机制背景 [Godot 官方 4.4 UID](https://godotengine.org/article/uid-changes-coming-to-godot-4-4/) |
 | G3 | 微信 FileSystemManager 不读 `.pck`，须改 `.zip` | 资源加载失败 | 导出改名 `engine/build.zip`（各方案已自动做） | 否（方案内建） | [mkdevkit §一/§二-3](https://github.com/mkdevkit/godot-minigame)；微信 [unzip 文档](https://developers.weixin.qq.com/minigame/dev/api/file/FileSystemManager.unzip.html) |
-| G4 | 总包 ≈19–20MB（示例：zip 13.5MB + wasm.br 6.0MB + 主包 0.4MB），逼近 20MB 上限 | 包越大越接近拒收 | 开虚拟支付提至 30MB（本项目不接支付、只为提上限，需评估合规），或 pck 改 CDN 下载落地读 | **接近阻塞** | [mkdevkit §二-4](https://github.com/mkdevkit/godot-minigame) |
+| G4 | 总包 ≈19–20MB（示例：zip 13.5MB + wasm.br 6.0MB + 主包 0.4MB）；现行官方总上限 30M 无条件（§7），约占 2/3 不越线，但按二手“20MB 首屏加载阈值”口径设计仍顶格 | 包越大越接近拒收，首屏加载越慢 | pck 改 CDN 下载落地读（原“开虚拟支付提至 30MB”解法随总包上限复核为无条件而不再必要；本项目本就不接支付） | **需关注**（原“接近阻塞”，2026-09-30 第二十二轮随上限口径复核降级） | [mkdevkit §二-4](https://github.com/mkdevkit/godot-minigame)、上限口径见本档 §7 |
 | G5 | 主包 4MB | 主包超限提审失败 | 引擎/pck 进分包、主包只留 loader；`packOptions.ignore` 排除源导出与 tools（mkdevkit 已做） | 否（有解） | [Cocos 微信发布（通用规则）](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html) |
 | G6 | iOS 低端机 wasm 编译 8–12s 冷启动（任务书给定值；本轮未找到一手基准，**假设待实测**） | 首启流失 | 首包瘦身 + 加载画面/启动剧情 + 预下载；Unity 侧同理（官方[启动优化](https://developers.weixin.qq.com/minigame/dev/guide/game-engine/unity-webgl-transform/Design/StartupOptimization.html)） | 否（体验级） | 任务书给定；类比来源 Unity 官方启动优化 |
 | G7 | 微信禁 `eval`/`new Function`；Godot jsbb `CompileFunctionSource` 报 `eval is not a function`；GodotJS 需把 quickjs-ng/v8 编进 wasm | 动态脚本能力不可用 | 自编引擎 `javascript_eval=no`，GodotJS 走 `use_quickjs_ng=yes`（mkdevkit 给出 scons 行） | 条件阻塞（不用 GodotJS 则无关） | [mkdevkit §二-8/§八](https://github.com/mkdevkit/godot-minigame) |
@@ -87,7 +87,7 @@ scons platform=web target=template_release optimize=size_extra lto=full \
 
 ### 3.1 Cocos 官方链已知问题
 
-- **包体**：主包 4MB/总包 20MB 同受；解法官方化（分包 + 资源服务器远程化），文档齐（[分包](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/subpackage.html)、[微信发布](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html)）。本项目梗图多，远程化是必选项而非可选项。
+- **包体**：主包 4MB/总包 30M（现行无条件上限，§7）同受；解法官方化（分包 + 资源服务器远程化），文档齐（[分包](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/subpackage.html)、[微信发布](https://docs.cocos.com/creator/4.0/manual/zh/editor/publish/publish-wechatgame.html)）。本项目梗图多，远程化是必选项而非可选项。
 - **性能**：iOS 内存与性能有官方优化指南（[微信 iOS 优化](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/wechat-ios-optimize.html)、[抖音 iOS 优化](https://docs.cocos.com/creator/3.8/manual/zh/editor/publish/bytedance-ios-optimize.html)）。
 - **引擎钉版**：Creator 大版本（3.8 LTS）内升级成本低于 Godot 自编模板，但 2.x→3.x/4.x 仍是 breaking 级；锁定 3.8.x LTS。
 - **桌面/Steam**：官方只有 Win/mac 构建，无 Steamworks 集成（见 §1.1），Steam 侧是 Cocos 唯一短板。
@@ -129,7 +129,7 @@ scons platform=web target=template_release optimize=size_extra lto=full \
 5. 抖音 Godot 官方支持（4.5）仅见[indienova 转述](https://indienova.com/groups/post/103403)，一手文档链接待补。
 6. 本文档 Star/Fork/版本号为 2026-09-29 取证快照，决策前建议重验（社区方案迭代快）。
 **第二批(2026-09-29)独立取证新增事实**(并入§6复核记录，见下):
-7. 微信主包上限实测：官方文档当前明确**30M 为无条件上限**（非“仅开通虚拟支付后”），旧值20M系历史遗留，详见 `final_analysis.md` A1。
+7. 微信主包上限实测：官方文档当前明确**30M 为无条件上限**（非“仅开通虚拟支付后”），旧值20M系历史遗留，详见 `final_analysis.md` A1。——2026-09-30 第二十二轮正典复核维持此结论并已统一正文（§1.2 包体上限规则与本项目相关度、§2.2 G4、§3.1），过程见本档 §7。
 8. 微信 WXWebAssembly 最低基础库：v2.13.0 为首次提供 WXWebAssembly 访问能力（非最低运行要求），v3.2.0 仅为 bugfix milestone，详见 `final_analysis.md` A2。
 9. 微信 eval/new Function 明确禁用：官方文档确认“出于安全考虑，不支持动态执行 JS 代码”，详见 `final_analysis.md` A3。
 10. 抖音包体上限：整体/总上限 20MB，主包≤4MB，单分包≤20MB，与微信现行 30M 总上限存在差异，详见 `final_analysis.md` B1。
@@ -148,3 +148,38 @@ scons platform=web target=template_release optimize=size_extra lto=full \
 6. **Steamworks 绑定授权差异**：Facepunch.Steamworks 非商业免费、商业需付费许可（[wiki.facepunch.com](https://wiki.facepunch.com/steamworks/)）；Steamworks.NET 为 MIT（[GitHub](https://github.com/rlabrecque/Steamworks.NET)）。选型成本维度已并入 §1.1。
 
 范围：本轮仅动本文档（含上述 6 处就地补强与本节）；README 引擎口径仍不动，等用户拍板；根目录遗留的未跟踪笔记 `godot_minigame_solutions.md` 属并行会话工作产物，不处置。
+
+## 7. 口径核对记录（2026-09-30 第二十二轮：微信总包 20M/30M 正典复核统一）
+
+轮次号占号前已全仓 grep 确认空闲（第二十一轮=终章 8-1/8-2 销账轮）。本轮销 `docs/story.md` §19.5 第三条遗留（也是该清单最后一条）。
+
+### 7.1 判定依据（正典复核，2026-09-30 实时取证）
+
+- **一手来源**：微信官方分包文档现行页（[useSubPackage.html](https://developers.weixin.qq.com/minigame/dev/subpackages/introduction/useSubPackage.html)，2026-09-30 WebFetch 实抓）原文：**“代码包总大小不能超过 30M，单个分包不限制大小，主包不超过 4M。”**——全文无 20M 字样、无虚拟支付条件。
+- **互证**：`docs/research/final_analysis.md` A1（收编时实抓，引文同上）与本文档 §5-7（第二批复核已实测）三点一致；“总包 ≤20MB（未开虚拟支付）/≤30MB（已开）”仅见于 mkdevkit 等二手转述，与现行官方文本不符，判为**历史口径的过时转述**（20M 为旧值）。
+- **判定**：统一为「总包 30M 无条件、主包 4M、单分包不限」；“开虚拟支付提上限”不再构成有效解法（本项目本不接支付）。
+- **注**：原 A1 所引 code-package.html 现返回 404（疑文档迁移），判定引文以现行 useSubPackage 页为准；“20MB 首屏加载阈值”为知乎实战二手提示，无官方一手佐证，仅作设计保守值保留、不升格为事实。
+
+### 7.2 本轮改动（engine-selection.md 正文四处统一 + 两处指针）
+
+| 落点 | 旧口径 | 新口径 |
+| --- | --- | --- |
+| §1.2 包体上限规则（Godot 列） | 总包 ≤20MB（未开虚拟支付）/≤30MB（已开），引 mkdevkit 转述 | 总包 ≤30M 无条件、单分包不限，引官方现行页；旧口径降为历史注记 |
+| §1.2 本项目相关度（Godot 列） | ≈19–20MB 逼近 20MB 上限，大概率要开虚拟支付 | ≈19–20MB 占 30M 上限约 2/3 不越线；按二手 20MB 首屏阈值设计仍顶格，pck CDN 仍推荐；虚拟支付解法取消 |
+| §2.2 G4 | 逼近 20MB 上限；解法含开虚拟支付提至 30MB；评级**接近阻塞** | 占 30M 约 2/3；解法仅留 pck CDN；评级降为**需关注**（降级缘由随行注明） |
+| §3.1 Cocos 包体 | 主包 4MB/总包 20MB 同受 | 主包 4MB/总包 30M（现行无条件上限）同受 |
+| §5-7 指针 | — | 加“第二十二轮已统一正文，过程见 §7” |
+
+结论影响面：G4 风险降级不改变 §0 推荐序（Cocos 引擎插件本就不吃包体，Godot 的 wasm 体积劣势判断不变）；抖音口径（整体 20MB）与微信差异照旧，§1.2 抖音列未动。
+
+### 7.3 相关文档同步
+
+- `docs/research/final_analysis.md`：处置注记新增第 3 条（复核闭合，A1 结论维持，判定页改记现行 URL）。
+- `docs/story.md`：§19.1 分歧登记行加复核闭合注；§19.5 第三条遗留加后记销账（三条遗留至此全部闭合）。
+- `docs/levels.md` §23.6 遗留行首项（同一事项的关卡侧登记）：**该文件本轮有他方在途改动（§2 无障碍行改写），按并行会话协议不互染，销注留待该文件空闲轮顺带补一行**。
+- 根目录 `story.md`、两份 `levels.md`、`gameplay-v3.md`：全文无 20M/30M 包体口径出现（grep 复核），零改动。
+
+### 7.4 假设与遗留（非交互）
+
+- “20M 为官方历史值”仅由二手转述与收编稿备注支撑，未回溯到官方存档页佐证——表述定为“历史口径/旧值”，不断言具体更替时间。
+- 遗留：README 引擎口径仍待用户拍板（原样保持）；抖音单分包 4MB/20MB 分歧维持保守设计口径（§6-4 原样）。

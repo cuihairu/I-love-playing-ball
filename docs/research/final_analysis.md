@@ -3,6 +3,7 @@
 > **处置注记(2026-09-29 第十五轮收编)**:本稿为 `docs/engine-selection.md` 选型深研的底稿取证之一,由根目录迁入 `docs/research/` 存档。两处口径登记:
 > 1. **A1(微信总包 30M 无条件)与 engine-selection.md 正文"总包 20MB、虚拟支付后 30MB"存在分歧**——两说均自称出自官方文档;本轮未复核出定论,engine-selection.md 正文未改,以本注记登记,**待正典复核**。
 > 2. A2(WXWebAssembly 最低基础库 v2.13.0)、A3(eval/new Function 官方禁用)与 engine-selection.md 坑登记互证一致。
+> 3. **复核闭合(2026-09-30 第二十二轮)**:本轮实时抓取现行官方分包文档页([useSubPackage.html](https://developers.weixin.qq.com/minigame/dev/subpackages/introduction/useSubPackage.html))原文:"代码包总大小不能超过 30M,单个分包不限制大小,主包不超过 4M。"——无虚拟支付条件、无 20M 字样,**A1 结论成立**;engine-selection.md 正文(§1.2/§2.2/§3.1)已统一为"总包 30M 无条件、主包 4M、单分包不限",判定依据与过程见该档 §7。本注记第 1 条所引 code-package.html 现返回 404(疑文档迁移),判定页以 useSubPackage 现行页为准;A1 原文照录不变。
 >
 > 原文未改动,仅加本注记。
 

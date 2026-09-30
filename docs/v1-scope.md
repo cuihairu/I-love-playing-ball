@@ -1,0 +1,78 @@
+# 第一版(V1)范围清单:Steam Demo
+
+> 状态:v1(2026-09-30 第二十七轮新建)。本文档是**范围索引**——只回答"第一个版本做什么/不做什么/还差什么",每项给上游锚点,细节以锚点文档为唯一权威,本文不复制数值与文案(防双源漂移,同 `levels-demo-spec.md` §6 惯例)。
+
+## 0. 「第一个版本」的判定
+
+- 正典依据:`docs/levels.md` §5 平台分期首行 **Steam Demo**(序章 + 第一章 4 关 + 第二章 4 关)与 `docs/gameplay-v3.md`「**V1 验收标准(Steam Demo)**」同名互证——第一个版本 = **V1 = Steam Demo**,关卡细案在 `docs/levels-demo-spec.md`(11 关全量配表与台词)。
+- 自行假设(非交互):派发口"第一个版本"按上述正典口径执行;若另指 Steam EA 正式版,裁剪逻辑需另行整理,不在本轮。
+- 平台策略前提:Steam 买断制先行、微信/抖音小游戏后行(`docs/engine-selection.md` §0);引擎定 Cocos Creator 3.8.x(README 现状 + 选型结论一致)。
+
+## 1. 做什么(V1 范围总表)
+
+### 1.1 关卡与玩法(11 关,三模块)
+
+| 层 | V1 内容 | 唯一权威锚点 |
+| --- | --- | --- |
+| 序章·M3 跑酷 | P0-1~P0-3:单轴三键(跳/二段跳/滑铲)、黑潮追尾线、中点检查点、开场 90s 演出、字雨终段 | demo-spec §1.1/§1.2 密度表 |
+| 一章·M1 节奏 | 1-1~1-3:判定三档 ±60/±130ms 与改写版判定词、连击里程碑 30/60/100、伴舞小鸡护连击(至多 3 次/局)、记忆编舞三段;1-4 BOSS 审判值制(MISS 回涨封顶、90s 抬分演出、复战 50% 起步) | demo-spec §2.1~§2.3 |
+| 二章·M2 格斗 | 2-1 教学(四键连招+"卸")→2-2 车轮三派(2v1/扑投拆投)→2-3 马老师授接化发(8f 窗/+20 气槽/12f 反击窗/反击 60,自败脚本)→2-4 双段 BOSS(青眸客高光区+大师兄镜像);连段表/必杀两技(闪电五连鞭 45×5、金鸡独立)/觉醒技只因一击(HP<30% 每局一次) | demo-spec §3.1 帧数据表(帧权威所在,引 gameplay-v3"帧数据以 demo-spec 为准") |
+| 唤醒演出 | 一次完整链路:大师兄 HP≤10% → 剥离 QTE「扶」→ 苏醒台词 → 人心灯 +2 → 号外 1 份(A5:号外形式,主笔身份七章揭晓) | gameplay-v3 唤醒系统、demo-spec 2Z-T14~T16 |
+| 复战/助威 | 1-4 曲终未归零→败→复战 50% 审判值;全局助威档(BOSS 关两连败开启)在 V1 生效范围 = 1-4/2-4 | demo-spec §2.3、gameplay-v3 助威档条 |
+
+### 1.2 叙事与文案
+
+| 层 | V1 内容 | 锚点 |
+| --- | --- | --- |
+| 台词全量 | 47 条(P0 12 + 1Z 16 + 2Z 19),含 ID/触发/备注 | demo-spec §1.3/§2.4/§3.2 |
+| 演出 | 开场 90s 六拍(可跳过,建议保留 A/B 测)、章末预告 2 条(1Z-T16/2Z-T19) | demo-spec P0-T01~06、gameplay-v3 V1 验收 |
+| 四宝残响 | 2 段(中分簪 1Z-T15、金篮球 2Z-T18;无声字幕+旧录音噪声+3-5s 闪回口径) | story §6、demo-spec 对应行 |
+| 灯预览 | 人心灯 7/24 结算(序章 1+一章 3+二章 3;马老师 +1 入队 D-T02) | demo-spec D-T01/D-T02 |
+| 角色 | 只因(主角,唯一明示一次 P0-T06)、戏楼班主、伴舞小鸡×3、昂首仙/鹅厂白鹅/鸭门双侠/犬吠帮/马老师/青眸客/虎山大师兄、匿名报童(A5) | demo-spec 三章台词表 |
+
+### 1.3 系统与技术
+
+| 层 | V1 内容 | 锚点 |
+| --- | --- | --- |
+| 存档 | 本地存档 + 存档继承接口 Schema 先行(人心灯/醒世报/四宝进度,云存档 Schema 同构) | gameplay-v3 存档条、demo-spec D-T03 |
+| 引导钩子 | 愿望单引导(软性不弹窗强拉,D-T04) | demo-spec D-T04 |
+| 配表 | 数值与配表全进 `packages/game-config`,按模块分文件(json),唤醒 NPC/灯/报文案配表化 | gameplay-v3 配表条 |
+| 工程 | Cocos Creator 3.8.x;场景结构 `Chapter{n}/Level{m}`;Boot/Home/Gameplay 组件壳模板已在 `apps/game/creator-templates` | `docs/cocos-project-plan.md`、`docs/creator-integration-playbook.md` 等 creator-* 系列 |
+| 降敏管线 | 全量远端配置 + 热更降敏口径从 V1 起生效 | `docs/compliance.md` |
+
+### 1.4 合规闸门(V1 必过)
+
+- 判定词全改写版(A3)、马老师两句台词文本保留/配音改写(A6)、梗词全部取自 meme-collection、脏话谐音二次改写后才入文案;终审前过一遍**指向性组合检查**。锚点:`docs/compliance.md`、demo-spec §0 A3/A6、`docs/meme-collection.md`。
+
+### 1.5 素材依赖(非文档交付,列依赖)
+
+- 曲目音频 3+1 首(曲名为占位定稿候选)、角色/场景/演出美术、字体与本地化位。清单见 `docs/placeholder-assets-checklist.md`。
+
+## 2. 不做什么(DEFER,防蔓延)
+
+| 内容 | 去向 | 依据 |
+| --- | --- | --- |
+| 三~十章后八关体系:M4 切瓜/M5 潜行/M6 守卫战/M7 卡牌审判、真香机制、七罪后五章叙事 | Steam EA | levels §5;demo-spec 头部范围声明 |
+| 多结局:宽恕线/心魔线判定、隐藏独白、醒世报常设八份(号外除外) | EA | levels §4.2、gameplay-v3 V1 验收(号外口径 A5) |
+| 多周目/逆流周目、章节隐藏挑战与匾额/解锁物发放 | EA | levels §4.1、§4.4 |
+| 收集全量:黑话图鉴页/旧戏残页/勋章墙/见证墙/唤醒之数 UI(词条只计数入存档继承) | EA | demo-spec §6 各条 Demo 内可得列 |
+| 百戏楼(9-0)、赛季化、创意工坊/UGC | Steam 1.0 | levels §5 |
+| 微信/抖音小游戏端与全量降敏、投 Lana 广告点位 | 小游戏版 | levels §5、engine-selection §0 |
+
+## 3. V1 还差的缺口(按依赖序)
+
+1. **编辑器工程**:`apps/game` 为 TS 骨架 + Creator 模板,未初始化正式 Creator 工程;Creator 3.8.x 编辑器无官方 Linux 版(2026-09-30 已核,Cocos 4 开源 headless 为后续观察点),待桌面机安装后按 `cocos-project-plan.md` 初始化。
+2. **compliance 终审**:A3/A6 的指向性组合检查未跑,是文案入库前置闸门。
+3. **配表映射**:demo-spec → `packages/game-config` 的字段映射未做(demo-spec 明言不在其范围)。
+4. **素材生产**:占位资产清单已有,生产未启动;M2 连招手感是 Demo 生死线(levels §5),帧数据表已就绪、可先白盒验证。
+5. **hooks 接线**:`docs/gameplay-feedback-hooks.md`/`gameplay-node-binding.md`/`home-result-hooks.md` 与 V1 验收五条的逐条对接未核对。
+
+## 4. 验收清单(V1 完成定义)
+
+- `gameplay-v3.md`「V1 验收标准(Steam Demo)」五条全部通过(序章通关/一章三首+三档+伴舞/二章格斗四件套/一次完整唤醒链路/结尾愿望单+灯预览+存档继承接口)。
+- `levels-demo-spec.md` §0 A1-A9 假设生效并随试玩调参;D-T01~D-T04 全部落地。
+- compliance 闸门(§1.4)全绿。
+
+## 5. 记录
+
+- 2026-09-30 第二十七轮新建本档:占号前 grep 全库空闲(第二十六轮=levels §23.6/§21.4/§22 回写销注轮);纯索引零复制,所有数值与文案以上游锚点为唯一权威;假设一条:"第一个版本"=Steam Demo(§0);`docs/story.md`、`docs/levels.md`、`docs/gameplay-v3.md`、`docs/levels-demo-spec.md` 本轮零改动。

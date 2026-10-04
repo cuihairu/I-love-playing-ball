@@ -1,0 +1,120 @@
+{
+  "version": 1,
+  "updated": "2026-10-04",
+  "notes": "关卡道具表 v1。机制口径见 docs/gameplay-v3.md 通用收集层;数值基线落配置期。红线:不产人心灯、不产醒世报、不进结局公式。",
+  "fragmentRules": {
+    "enabled": true,
+    "desc": "通关奖励道具分完整/碎片两态:通关评分达完整档拿完整道具,未达只拿碎片;多个碎片可合成一个完整道具。",
+    "scoreTiers": {
+      "full": "S(得分率 >= 95%,或对应难度档等效判据)",
+      "fragment": "A 及以下均给碎片,不给完整"
+    },
+    "fragmentPerClear": 1,
+    "defaultFragmentsToForge": 5,
+    "notes": "碎片按道具累计,合成一次性消耗;隐藏挑战/助威档不改变碎片产出(判据按当次实际结果);重复获得已完整道具自动转碎片。"
+  },
+  "items": [
+    {
+      "id": "treasure_white_boots",
+      "name": "鸡脚白靴",
+      "category": "法宝",
+      "obtain": "序章 P0-3 初始",
+      "fragmentable": false,
+      "effect": "四宝之一,贴身之物,六章鸡脚金靴首尾呼应",
+      "lore": "四宝复原线第一件"
+    },
+    {
+      "id": "treasure_comb",
+      "name": "中分簪",
+      "category": "法宝",
+      "obtain": "1-4 审判台 BOSS 昂首仙",
+      "fragmentable": false,
+      "effect": "发束牵引,吸附真言/道具(终章副武器)",
+      "lore": "残响第一段;四宝第二件"
+    },
+    {
+      "id": "treasure_basketball",
+      "name": "金篮球",
+      "category": "法宝",
+      "obtain": "2-4 金球之争 BOSS 双段",
+      "fragmentable": false,
+      "effect": "拍击清屏(终章副武器);6-1 弹幕副武器教学返回点",
+      "lore": "残响第二段"
+    },
+    {
+      "id": "treasure_overalls",
+      "name": "云锦背带裤",
+      "category": "法宝",
+      "obtain": "5-4 潮头 BOSS 随流君",
+      "fragmentable": false,
+      "effect": "兜接护盾,每局两次容错(终章副武器)",
+      "lore": "残响第三段;四宝第三件"
+    },
+    {
+      "id": "treasure_gold_boots",
+      "name": "鸡脚金靴",
+      "category": "法宝",
+      "obtain": "6-4 眼巢 BOSS 万目翁",
+      "fragmentable": false,
+      "effect": "冲刺位移穿隙(终章副武器)",
+      "lore": "残响第四段;四宝末件"
+    },
+    {
+      "id": "buff_youbing",
+      "name": "油饼",
+      "category": "增益",
+      "obtain": "6-3 矿道纵深等关内拾取",
+      "fragmentable": false,
+      "effect": "护盾(关内一次性)",
+      "lore": "梗道具"
+    },
+    {
+      "id": "buff_chicken_foot",
+      "name": "鸡脚",
+      "category": "增益",
+      "obtain": "6-3 矿道纵深等关内拾取",
+      "fragmentable": false,
+      "effect": "移速提升(关内限时)",
+      "lore": "梗道具"
+    },
+    {
+      "id": "buff_luzhao_shard",
+      "name": "律诏碎片",
+      "category": "增益",
+      "obtain": "6-3 矿道纵深等关内拾取",
+      "fragmentable": false,
+      "effect": "穿透(关内限时)",
+      "lore": "梗道具;与律诏三卷不是同一物"
+    },
+    {
+      "id": "unlock_skin_set",
+      "name": "外观套件",
+      "category": "解锁物",
+      "obtain": "通关奖励(章节宝箱)",
+      "fragmentable": true,
+      "fragmentsToForge": 5,
+      "effect": "角色/小鸡外观",
+      "lore": "碎片两态首批落点"
+    },
+    {
+      "id": "unlock_sfx_pack",
+      "name": "音效包",
+      "category": "解锁物",
+      "obtain": "通关奖励(章节宝箱)",
+      "fragmentable": true,
+      "fragmentsToForge": 5,
+      "effect": "判定音/打击音替换",
+      "lore": "合规口径:原创或 AI 仿写,禁原曲原声"
+    },
+    {
+      "id": "unlock_medal",
+      "name": "勋章",
+      "category": "解锁物",
+      "obtain": "通关奖励 + 隐藏挑战档位",
+      "fragmentable": true,
+      "fragmentsToForge": 3,
+      "effect": "个人陈列",
+      "lore": "与匾额碎片(隐藏挑战三档,一次性)不同物"
+    }
+  ]
+}

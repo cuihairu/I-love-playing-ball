@@ -49,9 +49,9 @@
 - 不做复杂商城
 - 网关里不写玩法逻辑
 
-#### 实时玩法服务层(自研 shield)
+#### 实时玩法服务层(自行开发 shield)
 
-实时玩法运行时使用自研框架 shield:https://github.com/cuihairu/shield ,actor 模型游戏服务器运行时,C++23 运行时 + Lua 写玩法逻辑。
+实时玩法运行时使用自行开发框架 shield:https://github.com/cuihairu/shield ,actor 模型游戏服务器运行时,C++23 运行时 + Lua 写玩法逻辑。
 
 定位:
 

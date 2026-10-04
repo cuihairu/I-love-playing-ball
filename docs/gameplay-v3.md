@@ -147,7 +147,7 @@ M7 基础规则(7-2 首教):三轨压制——轨上是谣言卡(源自七章之
 
 - Steam 买断制先行:Demo(序章+一二章)→ EA(全十章)→ 1.0(百戏楼赛季化)。价格锚点参考同类叙事+多玩法合集(具体定价发行期再定)。
 - 微信/抖音小游戏版后行:百戏楼精选 + 瓜田轻量 + 投篮(v2 ShotInputController 复用),F2P+广告,广告点位沿用 v2 设计(复活/翻倍/皮肤/每日参拜)。
-- 后端:沿用现有 Go 服务(排行榜/配置下发/广告开关),Steam 版接 Steam Achievements,微信版走 platform-sdk。
+- 后端(2026-10-04 修订,零成本服务架构):**Steamworks 管玩家侧 + Cloudflare 免费层管内容侧**——① 排行榜(每关三榜/周榜/日榜)走 **Steamworks Leaderboards**、成就统计走 Steamworks Achievements/Stats、云存档走 Steam Cloud(均免费零服务器);② 照影戏录像(存输入回放不存视频,KB 级)与每日戏文谱面/种子走 **Cloudflare R2**(10GB 免费+出站零流量费);③ 配置下发/热更降敏/广告开关走 **Cloudflare Workers+KV/D1**(10 万请求/天免费),每日/赛季结算走 Workers Cron;④ 官网/愿望单页走 Cloudflare Pages。Go 服务(apps/backend)缩为「管理员后台+Steam 榜单写入桥」,可后续 Serverless 化;免费层撑到数万销量量级,扩容点=R2 存储与 Workers 请求量。硬要求:配置/谱面拉取带本地兜底+缓存(拉取失败静默、旧配置继续生效,同词库下发口径)——中国玩家访问 Cloudflare 全球节点偶有波动,不可让内容链路卡脖子。Steamworks 只覆盖 Steam 玩家,微信版后行时另起平台侧(走 platform-sdk),不复用本表。
 
 ## 工程要点
 

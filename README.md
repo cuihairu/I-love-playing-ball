@@ -5,7 +5,7 @@
 ## 当前建议
 
 - 游戏客户端引擎定稿 **Godot 4.x**（Steam 买断制先行；2026-10-04 引擎重估拍板，见 `docs/engine-selection.md` §0.1，Cocos 退出候选、Unity 留 3D 升级路径）。
-- 后端使用 `Go + Gin + Gorm + SQLite` 单独放在 monorepo 里，只做轻量接口，例如排行榜、活动配置、广告开关、素材配置。
+- 后端零自建（2026-10-04 拍板）：玩家侧全走 Steamworks（榜单/成就/云存档）、内容侧全走 Cloudflare 免费层（R2/Workers/Pages），管理面=git+wrangler 发布配置；`apps/backend` 停建归档，见 `docs/gameplay-v3.md`「平台与商业化」。
 - 美术资源先用 AI 生成概念图，再统一做裁切、压缩、尺寸适配，不要一开始就手工堆素材。
 
 ## 目录结构

@@ -9,12 +9,21 @@
 - **第二选择：Godot 4.x（Steam 先行阶段可接受，小游戏阶段高成本）**。Steam 侧 Godot 完全成熟（GodotSteam、买断制爆款众多）；小游戏侧只有社区方案（见 §2），要自编无 EH/SIMD 引擎 + 钉死版本 + 踩一遍 §2.2 的坑登记表。适合“先 Steam 验证玩法、小游戏后行时再评估人力”的节奏。
 - **不推荐首选：Unity/团结引擎**。Steam 侧最强但对本项目过剩；小游戏侧 wasm 体积（~30MB 未压缩/压缩后 ~6MB）与 Cocos/Godot 同级甚至更大，且要走微信转换 SDK + wasm 代码分包全套流程，团队前端偏弱时成本最高。
 
-**什么条件下推翻这个结论**（满足任一即重议）：
+**什么条件下推翻这个结论**(满足任一即重议):
 
-1. 团队确定配一名专职引擎同学维护自编 Godot 模板（能跟进 Godot 发版钉版本、修 wasm-eh/SIMD、跟微信基础库升级）——则 Godot 可升为首选（Steam 体验 + 开源无授权顾虑）。
-2. 小游戏后行被取消（只做 Steam + PC），——则 Godot 与 Cocos 打平，按团队手感二选一；Unity 仍过剩。
-3. 需要 3D 高表现或主机平台（Switch/PS/Xbox）——则改选 Unity/团结引擎（Cocos/Godot 的主机链路弱）。
+1. 团队确定配一名专职引擎同学维护自编 Godot 模板(能跟进 Godot 发版钉版本、修 wasm-eh/SIMD、跟微信基础库升级)——则 Godot 可升为首选(Steam 体验 + 开源无授权顾虑)。
+2. 小游戏后行被取消(只做 Steam + PC)——则 Godot 与 Cocos 打平,按团队手感二选一;Unity 仍过剩。
+3. 需要 3D 高表现或主机平台(Switch/PS/Xbox)——则改选 Unity/团结引擎(Cocos/Godot 的主机链路弱)。
 4. 微信/抖音要求引擎运行时插件未覆盖的新能力且 Cocos 官方链掉队——则以实测为准重比。
+
+## 0.1 Steam-only 重估(2026-10-04;触发推翻条件 #2,用户拍板)
+
+平台策略确定**只发 Steam(国际版,无版号约束)**——微信/抖音后行不再是引擎约束。按推翻条件 #2 执行重估,结论变更:
+
+- **首选:Godot 4.x**。理由:2D 为底(七模块原生 2D + 2.5D 演出增强)下 Godot 2D 顶级且授权零成本(MIT,无订阅/无 runtime 费/无抽成),买断爆款同赛道(Brotato/Dome Keeper/Buckshot Roulette 均已核实);Steamworks 经 GodotSteam 全 API(成就/工坊/Input)。Cocos 的核心优势(微信/抖音官方双端链路)失去用武之地,**退出候选**。
+- **Unity 降为 3D 升级路径**:仅当 3D 雄心升级(全 3D 舞蹈秀)或主机平台(推翻条件 #3)时重议;Steam 侧 Facepunch/Steamworks.NET 成熟度不再是决策因素。
+- **成本口径(用户评估,2026-10-04)**:2D 基线 1x、2.5D 演出增强(斗舞舞台/唤醒演出)约 1.5x、全 3D 3-5x 且美术主导不可控——「2D 为底+2.5D 增强」为定稿策略。
+- 工程落点:apps/game 的 Cocos 脚手架不再推进,引擎工程初始化改按 Godot 4.x 重排;cocos-* 系列文档(cocos-project-plan/cocos-component-mapping/cocos-field-checklist/creator-*)降为历史参考。
 
 ## 1. 三引擎双端适配矩阵
 
